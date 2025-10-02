@@ -39,6 +39,15 @@ export default function Home() {
     loadResumes()
   }, []);
 
+  const handleWipeData = async () => {
+    if (window.confirm('Are you sure you want to delete all your resume data? This action cannot be undone.')) {
+      setLoadingResumes(true);
+      await kv.flush();
+      setResumes([]);
+      setLoadingResumes(false);
+    }
+  };
+
   return <main className="bg-[url('/images/bg-main.svg')] bg-cover">
     <Navbar />
 
@@ -58,11 +67,21 @@ export default function Home() {
       )}
 
       {!loadingResumes && resumes.length > 0 && (
-        <div className="resumes-section">
-          {resumes.map((resume) => (
-              <ResumeCard key={resume.id} resume={resume} />
-          ))}
-        </div>
+        <>
+          <div className="resumes-section">
+            {resumes.map((resume) => (
+                <ResumeCard key={resume.id} resume={resume} />
+            ))}
+          </div>
+          <div className="flex justify-center mt-8 mb-8">
+            <button 
+              onClick={handleWipeData}
+              className="primary-button w-fit text-xl font-semibold"
+            >
+              Wipe All Data
+            </button>
+          </div>
+        </>
       )}
 
       {!loadingResumes && resumes?.length === 0 && (
