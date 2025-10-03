@@ -114,6 +114,11 @@ form {
   .uploader-selected-file {
     @apply flex items-center justify-between p-3 bg-gray-50 rounded-2xl;
   }
+  .navbar {
+    @apply flex justify-between items-center px-4 py-4;
+    @apply sticky top-0 z-50 bg-white/80 backdrop-blur-sm;
+    @apply border-b border-gray-200;
+}
 }
 
 @utility bg-gradient {
